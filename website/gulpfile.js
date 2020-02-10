@@ -10,7 +10,8 @@ gulp.task("build", function() {
 });
 
 gulp.task("copy", function() {
-  return gulp.src(["build/*"]).pipe(gulp.dest("../"));
+  gulp.src(["build/*"]).pipe(gulp.dest("../"));
+  gulp.src(["build/static/*"]).pipe(gulp.dest("../static"));
 });
 
 gulp.task("default", gulp.parallel("copy"));
