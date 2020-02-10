@@ -11,7 +11,9 @@ gulp.task("build", function() {
 
 gulp.task("copy", function() {
   gulp.src(["build/*"]).pipe(gulp.dest("../"));
-  gulp.src(["build/static/*"]).pipe(gulp.dest("../static"));
+  gulp.src(["build/static/css/*"]).pipe(gulp.dest("../static/css"));
+  gulp.src(["build/static/js/*"]).pipe(gulp.dest("../static/js"));
+  gulp.src(["build/static/media/*"]).pipe(gulp.dest("../static/media"));
 });
 
 gulp.task("default", gulp.parallel("copy"));
