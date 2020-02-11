@@ -8,8 +8,8 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div>
-        <img className="img-responsive" src={img_2} />
+      <div className="homePic">
+        <img src={img_2} />
         <div className="homeIntro">
           <div className="greetings">Hi !</div>
           <div className="myName">I'm Dhairyasheel</div>

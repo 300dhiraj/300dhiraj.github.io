@@ -5,7 +5,7 @@ import FaceBook from "../src/images/facebook_icon.png";
 export default class Navbar extends Component {
   render() {
     return (
-      <div>
+      <div className={this.props.navMenuCls}>
         <ul className="nav flex-column">
           <li className="nav-item">
             <a
@@ -56,6 +56,7 @@ export default class Navbar extends Component {
             </a>
           </li>
         </ul>
+
         <div className="socialMedia">
           <a
             className="nav-link"

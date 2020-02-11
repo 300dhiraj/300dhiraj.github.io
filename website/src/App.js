@@ -12,31 +12,55 @@ import Contact from "./Contact";
 export default class App extends Component {
   componentWillMount() {
     this.state = {
-      show: "Home"
+      showComponent: "Home",
+      showMenu: "navMenuHide"
     };
   }
 
   linkClicked = link => {
-    this.setState({ show: link });
+    this.setState({ showComponent: link });
+  };
+
+  hamburgerClicked = () => {
+    let cls = this.state.showMenu ? "" : "navMenuHide";
+    this.setState({ showMenu: cls });
   };
 
   render() {
     return (
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
           <div className="col-md-3 text-center left-div">
+            <div
+              className="hamburger"
+              onClick={() => {
+                this.hamburgerClicked();
+              }}
+            >
+              <span
+                className="glyphicon glyphicon-menu-hamburger"
+                aria-hidden="true"
+              ></span>
+            </div>
             <Intro></Intro>
-            <Navbar linkClicked={this.linkClicked}></Navbar>
+            <Navbar
+              navMenuCls={this.state.showMenu}
+              linkClicked={this.linkClicked}
+            ></Navbar>
           </div>
           <div className="col-md-9 right-div">
-            {this.state.show === "Home" ? <Home></Home> : null}
-            {this.state.show === "About" ? <About></About> : null}
-            {this.state.show === "Skills" ? <Skills></Skills> : null}
-            {this.state.show === "Education" ? <Education></Education> : null}
-            {this.state.show === "Experience" ? (
+            {this.state.showComponent === "Home" ? <Home></Home> : null}
+            {this.state.showComponent === "About" ? <About></About> : null}
+            {this.state.showComponent === "Skills" ? <Skills></Skills> : null}
+            {this.state.showComponent === "Education" ? (
+              <Education></Education>
+            ) : null}
+            {this.state.showComponent === "Experience" ? (
               <Experience></Experience>
             ) : null}
-            {this.state.show === "Contact" ? <Contact></Contact> : null}
+            {this.state.showComponent === "Contact" ? (
+              <Contact></Contact>
+            ) : null}
           </div>
         </div>
       </div>
