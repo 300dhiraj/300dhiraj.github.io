@@ -1,27 +1,46 @@
 .left-div {
   background-color: #f2f3f7;
+  min-height: 100%;
+  overflow: hidden;
+  box-shadow: 0 0 5px #ccc;
 }
 
 .right-div {
-  background-color: blue;
 }
 
 .introComp {
-  padding: 20px 0px;
+  padding: 30px 0px 20px 0px;
 }
 
 .introComp img {
-  border: 2px solid #ffffff;
+  border: 1px solid #ffffff;
+  box-shadow: 0 0 10px #ccc;
 }
 
 .myInfo {
   padding: 10px 0px;
 }
 
-.wrapper{
-  height: 100%;
+.socialMedia {
+  padding: 22px 0px;
 }
 
-.linkedIn{
-  
+.linkedIn,
+.faceBook {
+  padding: 0px 10px;
+}
+
+.nav > li > a:hover {
+  background-color: #d8d8d8;
+  cursor: pointer;
+}
+
+.container {
+  min-height: 100%;
+  overflow: hidden;
+  background-color: #e8e8e8;
+}
+
+.col-md-9 {
+  padding: 0px !important;
 }
