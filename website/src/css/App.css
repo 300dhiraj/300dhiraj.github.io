@@ -44,3 +44,28 @@
 .col-md-9 {
   padding: 0px !important;
 }
+
+.homeIntro {
+  position: absolute;
+  top: 0;
+  margin: 15% 0% 0% 15%;
+  color: #ffffff;
+}
+
+.downloadCv {
+  border: 1px solid #ffffff;
+  box-shadow: 0 0 10px #ccc;
+  width: 140px;
+  padding: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.greetings,
+.myName {
+  font-size: 40px;
+}
+
+.downloadCv span {
+  margin-left: 10px;
+}
