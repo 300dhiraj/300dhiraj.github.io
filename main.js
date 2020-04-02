@@ -187,7 +187,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"loader\" *ngIf=\"isLoading\"></div>\n\n<div>\n  <table class=\"table table-striped table-bordered\">\n    <thead>\n      <tr>\n        <th>#</th>\n        <th>Country</th>\n        <th>Slug</th>\n        <th>New Confirmed</th>\n        <th>Total Confirmed</th>\n        <th>New Deaths</th>\n        <th>Total Deaths</th>\n        <th>New Recovered</th>\n        <th>Total Recovered</th>\n        <th>Action</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr *ngFor=\"let item of countries; let i = index\">\n        <td>{{ i + 1 }}</td>\n        <td>{{ item.Country }}</td>\n        <td>{{ item.Slug }}</td>\n        <td>{{ item.NewConfirmed }}</td>\n        <td>{{ item.TotalConfirmed }}</td>\n        <td>{{ item.NewDeaths }}</td>\n        <td>{{ item.TotalDeaths }}</td>\n        <td>{{ item.NewRecovered }}</td>\n        <td>{{ item.TotalRecovered }}</td>\n        <td><button type=\"button\" class=\"btn btn-primary btn-sm\"  [routerLink]=\"['/details', item.Slug]\">View Details</button></td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n"
+module.exports = "<div class=\"loader\" *ngIf=\"isLoading\"></div>\n\n<div>\n  <div class=\"well\">\n    <h4>India Corona Cases</h4>\n    <div class=\"row\">\n      <div class=\"col-sm-4\">\n        New Confirmed : <b>{{ indiaStat.NewConfirmed }}</b>\n      </div>\n      <div class=\"col-sm-4\">\n        Total Confirmed : <b>{{ indiaStat.TotalConfirmed }}</b>\n      </div>\n      <div class=\"col-sm-4\">\n        New Deaths : <b>{{ indiaStat.NewDeaths }}</b>\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-sm-4\">\n        Total Deaths : <b>{{ indiaStat.TotalDeaths }}</b>\n      </div>\n      <div class=\"col-sm-4\">\n        New Recovered : <b>{{ indiaStat.NewRecovered }}</b>\n      </div>\n      <div class=\"col-sm-4\">\n        Total Recovered : <b>{{ indiaStat.TotalRecovered }}</b>\n      </div>\n    </div>\n  </div>\n  <table class=\"table table-striped table-bordered\">\n    <thead>\n      <tr>\n        <th>#</th>\n        <th>Country</th>\n        <th>New Confirmed</th>\n        <th>Total Confirmed</th>\n        <th>New Deaths</th>\n        <th>Total Deaths</th>\n        <th>New Recovered</th>\n        <th>Total Recovered</th>\n        <th>Action</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr *ngFor=\"let item of countries; let i = index\">\n        <td>{{ i + 1 }}</td>\n        <td>{{ item.Country }}</td>\n        <td>{{ item.NewConfirmed }}</td>\n        <td>{{ item.TotalConfirmed }}</td>\n        <td>{{ item.NewDeaths }}</td>\n        <td>{{ item.TotalDeaths }}</td>\n        <td>{{ item.NewRecovered }}</td>\n        <td>{{ item.TotalRecovered }}</td>\n        <td>\n          <button\n            type=\"button\"\n            class=\"btn btn-primary btn-sm\"\n            [routerLink]=\"['/details', item.Slug]\"\n          >\n            View Details\n          </button>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n"
 
 /***/ }),
 
@@ -212,6 +212,7 @@ var DashboardComponent = /** @class */ (function () {
         this.api = api;
         this.isLoading = true;
         this.countries = [];
+        this.indiaStat = { NewConfirmed: '' };
     }
     DashboardComponent.prototype.ngOnInit = function () {
         this.getSummary();
@@ -223,6 +224,15 @@ var DashboardComponent = /** @class */ (function () {
             var data = res.Countries.splice(1);
             _this.countries = data;
             _this.isLoading = false;
+            var india = data.filter(function (item) {
+                if (item.Slug === 'india') {
+                    return item;
+                }
+            });
+            if (india.length) {
+                _this.indiaStat = india[0];
+            }
+            console.log(_this.indiaStat);
         }, function (err) {
             console.log(err);
             _this.isLoading = false;
@@ -291,10 +301,6 @@ var DetailsComponent = /** @class */ (function () {
         this.country = '';
     }
     DetailsComponent.prototype.ngOnInit = function () {
-        /*this.route.paramMap.subscribe(item => {
-          this.country = item.params.country;
-          this.getDetails(this.country);
-        });*/
         this.country = this.route.snapshot.paramMap.get('country');
         this.getDetails(this.country);
     };
