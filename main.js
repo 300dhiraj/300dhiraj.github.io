@@ -271,7 +271,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"loader\" *ngIf=\"isLoading\"></div>\n\n<div>\n  <h2>Details of {{ country }}</h2>\n  <table class=\"table table-striped table-bordered\">\n    <thead>\n      <tr>\n        <th>#</th>\n        <th>Lat</th>\n        <th>Lon</th>\n        <th>Date</th>\n        <th>Cases</th>\n        <th>Status</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr *ngFor=\"let item of details; let i = index\">\n        <td>{{ i + 1 }}</td>\n        <td>{{ item.Lat }}</td>\n        <td>{{ item.Lon }}</td>\n        <td>{{ item.Date }}</td>\n        <td>{{ item.Cases }}</td>\n        <td>{{ item.Status }}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n"
+module.exports = "<div class=\"loader\" *ngIf=\"isLoading\"></div>\n\n<div>\n  <h2>Details of {{ country }}</h2>\n  <table class=\"table table-striped table-bordered\">\n    <thead>\n      <tr>\n        <th>#</th>\n        <th>Date</th>\n        <th>Cases</th>\n        <th>Status</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr *ngFor=\"let item of details; let i = index\">\n        <td>{{ i + 1 }}</td>\n        <td>{{ item.Date }}</td>\n        <td>{{ item.Cases }}</td>\n        <td>{{ item.Status }}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n"
 
 /***/ }),
 
@@ -313,7 +313,7 @@ var DetailsComponent = /** @class */ (function () {
                 var d = new Date(item.Date);
                 item.Date = d.getDate() + " " + monthNames[d.getMonth()] + " " + d.getFullYear() + " ";
             });
-            _this.details = res;
+            _this.details = res.reverse();
             _this.isLoading = false;
         }, function (err) {
             console.log(err);
@@ -452,7 +452,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\dnesarkar\Desktop\D-Code\coronavirus-tracker\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\dnesarkar\Desktop\D-Code\CoronavirusTracker\src\main.ts */"./src/main.ts");
 
 
 /***/ })
