@@ -182,7 +182,7 @@
         ];
 
         var mapData = [
-            ['State Code', 'State', 'Positive', 'Death']
+            ['State Code', 'State']
         ];
 
         google.load('visualization', '1', {
@@ -208,6 +208,9 @@
                 return response.json();
             })
             .then((data) => {
+                mapData[0].push('Positive');
+                mapData[0].push('Death');
+
                 data.map((item) => {
                     stateCodeMap.map((stateCode) => {
                         if (item.state_code === stateCode.state_code) {
