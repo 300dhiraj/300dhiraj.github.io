@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Coronavirus Effect</title>
+</head>
+
+<body>
+    <div id="visualization" style="margin: 1em"> </div>
+    <div class="container">
+        <h2>India Coronavirus Effect</h2>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Positive</th>
+                    <th>Cured</th>
+                    <th>Death</th>
+                </tr>
+            </thead>
+            <tbody id='table-data'></tbody>
+        </table>
+    </div>
+</body>
+<footer>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://www.google.com/jsapi"></script>
+
+    <script>
+        var stateCodeMap = [{
+                "state_id": "IN-AP",
+                "state_code": "28"
+            },
+            {
+                "state_id": "IN-AN",
+                "state_code": "35"
+            },
+            {
+                "state_id": "IN-AR",
+                "state_code": "12"
+            },
+            {
+                "state_id": "IN-AS",
+                "state_code": "18"
+            },
+            {
+                "state_id": "IN-BR",
+                "state_code": "10"
+            },
+            {
+                "state_id": "IN-CH",
+                "state_code": "04"
+            },
+            {
+                "state_id": "IN-CT",
+                "state_code": "22"
+            },
+            {
+                "state_id": "IN-DN",
+                "state_code": "26"
+            },
+            {
+                "state_id": "IN-DD",
+                "state_code": "25"
+            },
+            {
+                "state_id": "IN-DL",
+                "state_code": "07"
+            },
+            {
+                "state_id": "IN-GA",
+                "state_code": "30"
+            },
+            {
+                "state_id": "IN-GJ",
+                "state_code": "24"
+            },
+            {
+                "state_id": "IN-HR",
+                "state_code": "06"
+            },
+            {
+                "state_id": "IN-HP",
+                "state_code": "02"
+            },
+            {
+                "state_id": "IN-JK",
+                "state_code": "01"
+            },
+            {
+                "state_id": "IN-JH",
+                "state_code": "20"
+            },
+            {
+                "state_id": "IN-KA",
+                "state_code": "29"
+            },
+            {
+                "state_id": "IN-KL",
+                "state_code": "32"
+            },
+            {
+                "state_id": "IN-LA",
+                "state_code": "37"
+            },
+            {
+                "state_id": "IN-LD",
+                "state_code": "31"
+            },
+            {
+                "state_id": "IN-MP",
+                "state_code": "23"
+            },
+            {
+                "state_id": "IN-MH",
+                "state_code": "27"
+            },
+            {
+                "state_id": "IN-MN",
+                "state_code": "14"
+            },
+            {
+                "state_id": "IN-ML",
+                "state_code": "17"
+            },
+            {
+                "state_id": "IN-MZ",
+                "state_code": "15"
+            },
+            {
+                "state_id": "IN-NL",
+                "state_code": "13"
+            },
+            {
+                "state_id": "IN-OR",
+                "state_code": "21"
+            },
+            {
+                "state_id": "IN-PY",
+                "state_code": "34"
+            },
+            {
+                "state_id": "IN-PB",
+                "state_code": "03"
+            },
+            {
+                "state_id": "IN-RJ",
+                "state_code": "08"
+            },
+            {
+                "state_id": "IN-SK",
+                "state_code": "11"
+            },
+            {
+                "state_id": "IN-TN",
+                "state_code": "33"
+            },
+            {
+                "state_id": "IN-TR",
+                "state_code": "16"
+            },
+            {
+                "state_id": "IN-TG",
+                "state_code": "36"
+            },
+            {
+                "state_id": "IN-UT",
+                "state_code": "05"
+            },
+            {
+                "state_id": "IN-UP",
+                "state_code": "09"
+            },
+            {
+                "state_id": "IN-WB",
+                "state_code": "19"
+            }
+        ];
+
+        var mapData = [
+            ['State Code', 'State', 'Positive', 'Death']
+        ];
+
+        google.load('visualization', '1', {
+            'packages': ['geochart']
+        });
+
+        function drawVisualization() {
+            var data = google.visualization.arrayToDataTable(mapData);
+            var opts = {
+                region: 'IN',
+                displayMode: 'regions',
+                resolution: 'provinces'
+            };
+            var geochart = new google.visualization.GeoChart(
+                document.getElementById('visualization'));
+            geochart.draw(data, opts);
+        };
+
+        fetch('https://www.mohfw.gov.in/dashboard/data/data.json')
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                data.map((item) => {
+                    stateCodeMap.map((stateCode) => {
+                        if (item.state_code === stateCode.state_code) {
+                            mapData.push([stateCode.state_id, item.state_name, parseInt(item
+                                .positive), parseInt(item
+                                .death)]);
+                        }
+                    });
+
+                    $("#table-data").append(
+                        `<tr><td>${item.state_name}</td><td>${item.positive}</td><td>${item.cured}</td><td>${item.death}</td></tr>`
+                    );
+                });
+
+                google.setOnLoadCallback(drawVisualization);
+            });
+    </script>
+</footer>
+
+</html>
