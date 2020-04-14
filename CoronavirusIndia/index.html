@@ -189,6 +189,8 @@
             'packages': ['geochart']
         });
 
+        google.setOnLoadCallback(drawVisualization);
+
         function drawVisualization() {
             var data = google.visualization.arrayToDataTable(mapData);
             var opts = {
