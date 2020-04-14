@@ -222,7 +222,10 @@
                     );
                 });
 
-                google.setOnLoadCallback(drawVisualization);
+                setTimeout(() => {
+                    google.setOnLoadCallback(drawVisualization);
+                }, 1000);
+
             });
     </script>
 </footer>
