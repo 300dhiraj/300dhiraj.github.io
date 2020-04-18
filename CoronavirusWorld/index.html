@@ -1,0 +1,87 @@
+<html>
+
+<head>
+  <title>World Coronavirus Effect</title>
+  <style>
+    html,
+    body {
+      height: 98%;
+    }
+
+    #regions_div {
+      height: 100%;
+    }
+
+    #records {
+      position: absolute;
+      top: 5;
+    }
+  </style>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {
+      'packages': ['geochart'],
+      'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+    });
+    google.charts.setOnLoadCallback(drawRegionsMap);
+
+    function drawRegionsMap() {
+
+      fetch('https://corona-api.com/countries')
+        .then((response) => {
+          return response.json();
+        })
+        .then((countriesData) => {
+          mapData = [
+            ['Country', '', 'Infected ', 'Deaths']
+          ];
+
+          var confirmed = 0,
+            recovered = 0,
+            death = 0;
+
+
+          countriesData.data.map((item) => {
+            let latest = item.latest_data;
+            mapData.push([item.code, item.name, latest.confirmed, latest.deaths]);
+            confirmed += parseInt(latest.confirmed);
+            recovered += parseInt(latest.recovered);
+            death += parseInt(latest.deaths);
+          });
+
+          $("#confirmed-cases").html(confirmed);
+          $("#recovered-cases").html(recovered);
+          $("#death-cases").html(death);
+
+          var data = google.visualization.arrayToDataTable(mapData);
+          var options = {};
+          var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+          chart.draw(data);
+        });
+    }
+  </script>
+</head>
+
+<body>
+  <div id="regions_div"></div>
+  <div class="container">
+    <div id="records">
+      <div>
+        <span id="head">World Coronavirus Effect</span>&nbsp;
+      </div>
+      <div>
+        <span class="label label-warning">confirmed <span id="confirmed-cases"></span></span>
+        <span class="label label-success">recovered <span id="recovered-cases"></span></span>
+        <span class="label label-danger">Death <span id="death-cases"></span></span>
+      </div>
+      <a href="https://300dhiraj.github.io/CoronavirusIndia" target="_blank">Click here for India</a>
+    </div>
+  </div>
+</body>
+<footer>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</footer>
+
+</html>
