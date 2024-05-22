@@ -1,0 +1,104 @@
+<html>
+
+<head>
+    <title>Farm outline</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    <style>
+        /* 
+ * Always set the map height explicitly to define the size of the div element
+ * that contains the map. 
+ */
+        #map {
+            height: 100%;
+        }
+
+        /* 
+ * Optional: Makes the sample page fill the window. 
+ */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <!-- 
+      The `defer` attribute causes the script to execute after the full HTML
+      document has been parsed. For non-blocking uses, avoiding race conditions,
+      and consistent behavior across browsers, consider loading using Promises. See
+      https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+      for more information.
+      -->
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+        defer></script>
+
+    <script>
+        // This example creates a simple polygon representing the Bermuda Triangle.
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: { lat: 15.887098530580683, lng: 74.43170528709994 },
+                mapTypeId: "satellite",
+            });
+
+            // Define the LatLng coordinates for the polygon's path.
+            const farm_1_Coords = [
+                { lat: 15.900663, lng: 74.429747 },
+                { lat: 15.900717, lng: 74.429900 },
+                { lat: 15.90119, lng: 74.42972 },
+                { lat: 15.901675, lng: 74.429599 },
+                { lat: 15.901657, lng: 74.429460 },
+                { lat: 15.901152, lng: 74.429595 },
+            ];
+
+            // Define the LatLng coordinates for the polygon's path.
+            const farm_2_Part_1_Coords = [
+                { lat: 15.879366, lng: 74.437507 },
+                { lat: 15.879463, lng: 74.437689 },
+                { lat: 15.879836, lng: 74.437615 },
+                { lat: 15.879803, lng: 74.437419 },
+            ];
+
+            // Define the LatLng coordinates for the polygon's path.
+            const farm_2_Part_2_Coords = [
+                { lat: 15.883906, lng: 74.436654 },
+                { lat: 15.883937, lng: 74.436807 },
+                { lat: 15.884225, lng: 74.436749 },
+                { lat: 15.884575, lng: 74.436659 },
+                { lat: 15.884532, lng: 74.436493 },
+                { lat: 15.884193, lng: 74.436596 },
+            ];
+
+            // Define the LatLng coordinates for the polygon's path.
+            const plot_Coords = [
+                { lat: 15.887098530580683, lng: 74.43170528709994 },
+                { lat: 15.887073383017198, lng: 74.43143269971068 },
+                { lat: 15.887115, lng: 74.431437 },
+                { lat: 15.887153960099061, lng: 74.43171565951731 },
+            ];
+
+            // Construct the polygon.
+            const farm_boundry = new google.maps.Polygon({
+                paths: [farm_1_Coords, farm_2_Part_1_Coords, farm_2_Part_2_Coords, plot_Coords],
+                strokeColor: "#FF0000",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: "#ffff00",
+                fillOpacity: 0.35,
+            });
+
+            farm_boundry.setMap(map);
+        }
+
+        window.initMap = initMap;
+    </script>
+</body>
+
+</html>
